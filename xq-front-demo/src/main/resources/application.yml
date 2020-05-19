@@ -1,0 +1,31 @@
+# Tomcat
+server:
+    tomcat:
+        uri-encoding: UTF-8
+        max-threads: 1000
+        min-spare-threads: 30
+    port: 8088
+
+spring:
+    #  dev|test|pro
+    profiles:
+        active: dev
+    devtools:
+        restart:
+            enabled: true
+            additional-paths: xq-front-demo/src/main/java
+            exclude: static/**
+    messages:
+        encoding: UTF-8
+    thymeleaf:
+        encoding: utf-8
+        enabled: true
+        mode: HTML5
+        suffix: .html
+        prefix: classpath:/static/
+        cache: false
+        basename: messages
+    resources:
+        static-locations: classpath:/static/
+#logging:
+#  config: file:${properties.path}/logback.xml

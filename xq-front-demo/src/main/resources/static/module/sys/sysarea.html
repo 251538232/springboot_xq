@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- head -->
+<head th:replace="common/common :: header">
+</head>
+<body>
+<div id="webapp" v-cloak>
+    <div class="row" v-show="showList">
+        <div class="col-xs-6 col-md-4">
+            <div class="col-sm-2 control-label"></div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  v-model="q.id" placeholder=""/>
+                <input type="hidden" v-model="q.idCondition" />
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div class="col-sm-2 control-label"></div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  v-model="q.kenId" placeholder=""/>
+                <input type="hidden" v-model="q.kenIdCondition" />
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div class="col-sm-2 control-label"></div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  v-model="q.cityId" placeholder=""/>
+                <input type="hidden" v-model="q.cityIdCondition" />
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div class="col-sm-2 control-label"></div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  v-model="q.townId" placeholder=""/>
+                <input type="hidden" v-model="q.townIdCondition" />
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div class="col-sm-2 control-label"></div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  v-model="q.zip" placeholder=""/>
+                <input type="hidden" v-model="q.zipCondition" />
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div class="col-sm-2 control-label"></div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  v-model="q.officeFlg" placeholder=""/>
+                <input type="hidden" v-model="q.officeFlgCondition" />
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div class="col-sm-2 control-label"></div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  v-model="q.deleteFlg" placeholder=""/>
+                <input type="hidden" v-model="q.deleteFlgCondition" />
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div class="col-sm-2 control-label"></div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  v-model="q.kenName" placeholder=""/>
+                <input type="hidden" v-model="q.kenNameCondition" />
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div class="col-sm-2 control-label"></div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  v-model="q.kenFuri" placeholder=""/>
+                <input type="hidden" v-model="q.kenFuriCondition" />
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div class="col-sm-2 control-label"></div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  v-model="q.cityName" placeholder=""/>
+                <input type="hidden" v-model="q.cityNameCondition" />
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div class="col-sm-2 control-label"></div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  v-model="q.cityFuri" placeholder=""/>
+                <input type="hidden" v-model="q.cityFuriCondition" />
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div class="col-sm-2 control-label"></div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  v-model="q.townName" placeholder=""/>
+                <input type="hidden" v-model="q.townNameCondition" />
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div class="col-sm-2 control-label"></div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  v-model="q.townFuri" placeholder=""/>
+                <input type="hidden" v-model="q.townFuriCondition" />
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div class="col-sm-2 control-label"></div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  v-model="q.townMemo" placeholder=""/>
+                <input type="hidden" v-model="q.townMemoCondition" />
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div class="col-sm-2 control-label"></div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  v-model="q.kyotoStreet" placeholder=""/>
+                <input type="hidden" v-model="q.kyotoStreetCondition" />
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div class="col-sm-2 control-label"></div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  v-model="q.blockName" placeholder=""/>
+                <input type="hidden" v-model="q.blockNameCondition" />
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div class="col-sm-2 control-label"></div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  v-model="q.blockFuri" placeholder=""/>
+                <input type="hidden" v-model="q.blockFuriCondition" />
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div class="col-sm-2 control-label"></div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  v-model="q.memo" placeholder=""/>
+                <input type="hidden" v-model="q.memoCondition" />
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div class="col-sm-2 control-label"></div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  v-model="q.officeName" placeholder=""/>
+                <input type="hidden" v-model="q.officeNameCondition" />
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div class="col-sm-2 control-label"></div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  v-model="q.officeFuri" placeholder=""/>
+                <input type="hidden" v-model="q.officeFuriCondition" />
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div class="col-sm-2 control-label"></div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  v-model="q.officeAddress" placeholder=""/>
+                <input type="hidden" v-model="q.officeAddressCondition" />
+            </div>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <div class="col-sm-2 control-label"></div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  v-model="q.newId" placeholder=""/>
+                <input type="hidden" v-model="q.newIdCondition" />
+            </div>
+        </div>
+        <a class="btn btn-default" @click="select"><i class="fa fa-plus" th:text="#{common.button.select}"/></a>
+    </div>
+    <br>
+
+	<div v-show="showList">
+        <div class="grid-btn">
+            <a class="btn btn-primary" @click="create"><i class="fa fa-plus" th:text="#{common.button.create}"/></a>
+            <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o" th:text="#{common.button.update}"/></a>
+            <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o" th:text="#{common.button.delete}"/></a>
+        </div>
+	    <table id="gridTable"></table>
+	    <div id="gridPager"></div>
+    </div>
+    
+    <div v-show="!showList" class="panel panel-default">
+		<div class="panel-heading">{{title}}</div>
+		<form class="form-horizontal">
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			    	<input type="text" class="form-control" v-model="sysArea.kenId" placeholder=""/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			    	<input type="text" class="form-control" v-model="sysArea.cityId" placeholder=""/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			    	<input type="text" class="form-control" v-model="sysArea.townId" placeholder=""/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			    	<input type="text" class="form-control" v-model="sysArea.zip" placeholder=""/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			    	<input type="text" class="form-control" v-model="sysArea.officeFlg" placeholder=""/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			    	<input type="text" class="form-control" v-model="sysArea.deleteFlg" placeholder=""/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			    	<input type="text" class="form-control" v-model="sysArea.kenName" placeholder=""/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			    	<input type="text" class="form-control" v-model="sysArea.kenFuri" placeholder=""/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			    	<input type="text" class="form-control" v-model="sysArea.cityName" placeholder=""/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			    	<input type="text" class="form-control" v-model="sysArea.cityFuri" placeholder=""/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			    	<input type="text" class="form-control" v-model="sysArea.townName" placeholder=""/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			    	<input type="text" class="form-control" v-model="sysArea.townFuri" placeholder=""/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			    	<input type="text" class="form-control" v-model="sysArea.townMemo" placeholder=""/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			    	<input type="text" class="form-control" v-model="sysArea.kyotoStreet" placeholder=""/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			    	<input type="text" class="form-control" v-model="sysArea.blockName" placeholder=""/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			    	<input type="text" class="form-control" v-model="sysArea.blockFuri" placeholder=""/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			    	<input type="text" class="form-control" v-model="sysArea.memo" placeholder=""/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			    	<input type="text" class="form-control" v-model="sysArea.officeName" placeholder=""/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			    	<input type="text" class="form-control" v-model="sysArea.officeFuri" placeholder=""/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			    	<input type="text" class="form-control" v-model="sysArea.officeAddress" placeholder=""/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			    	<input type="text" class="form-control" v-model="sysArea.newId" placeholder=""/>
+			    </div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-2 control-label"></div> 
+				<input type="button" class="btn btn-primary" @click="createOrUpdate" value="確定"/>
+				&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="戻る"/>
+			</div>
+		</form>
+	</div>
+</div>
+<script th:src="@{'/js/sys/sysarea.js?'+ ${#strings.randomAlphanumeric(10)}}"></script>
+</body>
+</html>

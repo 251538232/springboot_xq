@@ -1,0 +1,50 @@
+# Tomcat
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    min-spare-threads: 30
+  port: 8072
+management:
+  health:
+    db:
+      enabled: true
+    mail:
+      enabled: true
+  endpoint:
+    metrics:
+      enabled: true
+    health:
+      show-details: always
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: "*"
+spring:
+  profiles:
+    # dev|test|pro|salary|jenkins
+    active: test
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+  devtools:
+    restart:
+      enabled: false
+      additional-paths: xq-web/src/main/java
+      exclude: static/**
+
+  mvc:
+    throw-exception-if-no-handler-found: true
+    static-path-pattern: static/**
+
+  transaction:
+    rollback-on-commit-failure: true
+
+# Mybatis
+mybatis:
+  mapperLocations: classpath*:mapper/**/*Mapper.xml
+  configLocation: classpath:mybatis.xml
+logging:
+  level:
+    root: INFO

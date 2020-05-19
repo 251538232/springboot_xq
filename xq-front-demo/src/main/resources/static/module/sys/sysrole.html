@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- head -->
+<head th:replace="common/common :: header">
+</head>
+<body>
+<div id="webapp" v-cloak>
+    <div class="row" v-show="showList">
+        <div class="col-xs-6 col-md-4">
+            <div class="col-sm-2 control-label">役柄名称</div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control"  v-model="q.roleName" placeholder="役柄名称"/>
+                <input type="hidden" v-model="q.roleNameCondition" />
+            </div>
+        </div>
+        <a class="btn btn-default" @click="select"><i class="fa fa-plus" th:text="#{common.button.select}"/></a>
+    </div>
+    <br>
+
+	<div v-show="showList">
+        <div class="grid-btn">
+            <a class="btn btn-primary" @click="create"><i class="fa fa-plus" th:text="#{common.button.create}"/></a>
+            <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o" th:text="#{common.button.update}"/></a>
+            <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o" th:text="#{common.button.delete}"/></a>
+        </div>
+	    <table id="gridTable"></table>
+	    <div id="gridPager"></div>
+    </div>
+    
+    <div v-show="!showList" class="panel panel-default">
+		<div class="panel-heading">{{title}}</div>
+		<form class="form-horizontal">
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">役柄名称</div>
+			   	<div class="col-sm-10">
+			    	<input type="text" class="form-control" v-model="sysRole.roleName" placeholder="役柄名称"/>
+			    </div>
+			</div>
+			<div class="form-group">
+			   	<div class="col-sm-2 control-label">説明</div>
+			   	<div class="col-sm-10">
+			    	<input type="text" class="form-control" v-model="sysRole.description" placeholder="説明"/>
+			    </div>
+			</div>
+            <div class="form-inline clearfix" style="margin-top:30px;margin-left:26px;">
+                <div class="form-group col-md-6">
+                    <strong class="col-sm-5 control-label">メニュー権限</strong>
+                    <div class="col-sm-10">
+                        <ul id="menuTree" class="ztree"></ul>
+                    </div>
+                </div>
+            </div>
+			<div class="form-group">
+				<div class="col-sm-2 control-label"></div> 
+				<input type="button" class="btn btn-primary" @click="createOrUpdate" value="確定"/>
+				&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="戻る"/>
+			</div>
+		</form>
+	</div>
+</div>
+<script th:src="@{'/js/sys/sysrole.js?'+ ${#strings.randomAlphanumeric(10)}}"></script>
+</body>
+</html>

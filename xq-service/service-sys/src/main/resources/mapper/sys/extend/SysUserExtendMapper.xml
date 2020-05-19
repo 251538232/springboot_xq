@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.xq.service.sys.mapper.extend.SysUserExtendMapper">
+    <resultMap id="BaseResultMap" type="jp.co.xq.service.sys.model.SysMenu">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="url" jdbcType="VARCHAR" property="url" />
+        <result column="permission" jdbcType="VARCHAR" property="permission" />
+        <result column="type" jdbcType="INTEGER" property="type" />
+        <result column="icon" jdbcType="VARCHAR" property="icon" />
+        <result column="order_num" jdbcType="INTEGER" property="orderNum" />
+        <result column="parent_name" jdbcType="VARCHAR" property="parentName" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+
+  <!-- ユーザー(状態が1:正常)の権限を取得 -->
+  <select id="getPermissionsByUserId" resultType="string">
+    select m.permission
+    from sys_user_role r
+    left join sys_role_menu rm on r.role_id = rm.role_id
+    left join sys_menu m on rm.menu_id = m.id
+    where r.user_id = #{userId,jdbcType=BIGINT}
+  </select>
+
+</mapper>

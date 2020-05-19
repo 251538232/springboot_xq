@@ -1,0 +1,737 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.xq.service.sys.mapper.SysAreaMapper">
+  <resultMap id="BaseResultMap" type="jp.co.xq.service.sys.model.SysArea">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="ken_id" jdbcType="INTEGER" property="kenId" />
+    <result column="city_id" jdbcType="INTEGER" property="cityId" />
+    <result column="town_id" jdbcType="INTEGER" property="townId" />
+    <result column="zip" jdbcType="VARCHAR" property="zip" />
+    <result column="office_flg" jdbcType="INTEGER" property="officeFlg" />
+    <result column="delete_flg" jdbcType="INTEGER" property="deleteFlg" />
+    <result column="ken_name" jdbcType="VARCHAR" property="kenName" />
+    <result column="ken_furi" jdbcType="VARCHAR" property="kenFuri" />
+    <result column="city_name" jdbcType="VARCHAR" property="cityName" />
+    <result column="city_furi" jdbcType="VARCHAR" property="cityFuri" />
+    <result column="town_name" jdbcType="VARCHAR" property="townName" />
+    <result column="town_furi" jdbcType="VARCHAR" property="townFuri" />
+    <result column="town_memo" jdbcType="VARCHAR" property="townMemo" />
+    <result column="kyoto_street" jdbcType="VARCHAR" property="kyotoStreet" />
+    <result column="block_name" jdbcType="VARCHAR" property="blockName" />
+    <result column="block_furi" jdbcType="VARCHAR" property="blockFuri" />
+    <result column="memo" jdbcType="VARCHAR" property="memo" />
+    <result column="office_name" jdbcType="VARCHAR" property="officeName" />
+    <result column="office_furi" jdbcType="VARCHAR" property="officeFuri" />
+    <result column="office_address" jdbcType="VARCHAR" property="officeAddress" />
+    <result column="new_id" jdbcType="VARCHAR" property="newId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, ken_id, city_id, town_id, zip, office_flg, delete_flg, ken_name, ken_furi, city_name, 
+    city_furi, town_name, town_furi, town_memo, kyoto_street, block_name, block_furi, 
+    memo, office_name, office_furi, office_address, new_id
+  </sql>
+  <select id="selectByExample" parameterType="jp.co.xq.service.sys.model.SysAreaExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_area
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_area
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_area
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="jp.co.xq.service.sys.model.SysAreaExample">
+    delete from sys_area
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="jp.co.xq.service.sys.model.SysArea">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sys_area (ken_id, city_id, town_id, 
+      zip, office_flg, delete_flg, 
+      ken_name, ken_furi, city_name, 
+      city_furi, town_name, town_furi, 
+      town_memo, kyoto_street, block_name, 
+      block_furi, memo, office_name, 
+      office_furi, office_address, new_id
+      )
+    values (#{kenId,jdbcType=INTEGER}, #{cityId,jdbcType=INTEGER}, #{townId,jdbcType=INTEGER}, 
+      #{zip,jdbcType=VARCHAR}, #{officeFlg,jdbcType=INTEGER}, #{deleteFlg,jdbcType=INTEGER}, 
+      #{kenName,jdbcType=VARCHAR}, #{kenFuri,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR}, 
+      #{cityFuri,jdbcType=VARCHAR}, #{townName,jdbcType=VARCHAR}, #{townFuri,jdbcType=VARCHAR}, 
+      #{townMemo,jdbcType=VARCHAR}, #{kyotoStreet,jdbcType=VARCHAR}, #{blockName,jdbcType=VARCHAR}, 
+      #{blockFuri,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{officeName,jdbcType=VARCHAR}, 
+      #{officeFuri,jdbcType=VARCHAR}, #{officeAddress,jdbcType=VARCHAR}, #{newId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="jp.co.xq.service.sys.model.SysArea">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into sys_area
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="kenId != null">
+        ken_id,
+      </if>
+      <if test="cityId != null">
+        city_id,
+      </if>
+      <if test="townId != null">
+        town_id,
+      </if>
+      <if test="zip != null">
+        zip,
+      </if>
+      <if test="officeFlg != null">
+        office_flg,
+      </if>
+      <if test="deleteFlg != null">
+        delete_flg,
+      </if>
+      <if test="kenName != null">
+        ken_name,
+      </if>
+      <if test="kenFuri != null">
+        ken_furi,
+      </if>
+      <if test="cityName != null">
+        city_name,
+      </if>
+      <if test="cityFuri != null">
+        city_furi,
+      </if>
+      <if test="townName != null">
+        town_name,
+      </if>
+      <if test="townFuri != null">
+        town_furi,
+      </if>
+      <if test="townMemo != null">
+        town_memo,
+      </if>
+      <if test="kyotoStreet != null">
+        kyoto_street,
+      </if>
+      <if test="blockName != null">
+        block_name,
+      </if>
+      <if test="blockFuri != null">
+        block_furi,
+      </if>
+      <if test="memo != null">
+        memo,
+      </if>
+      <if test="officeName != null">
+        office_name,
+      </if>
+      <if test="officeFuri != null">
+        office_furi,
+      </if>
+      <if test="officeAddress != null">
+        office_address,
+      </if>
+      <if test="newId != null">
+        new_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="kenId != null">
+        #{kenId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null">
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="townId != null">
+        #{townId,jdbcType=INTEGER},
+      </if>
+      <if test="zip != null">
+        #{zip,jdbcType=VARCHAR},
+      </if>
+      <if test="officeFlg != null">
+        #{officeFlg,jdbcType=INTEGER},
+      </if>
+      <if test="deleteFlg != null">
+        #{deleteFlg,jdbcType=INTEGER},
+      </if>
+      <if test="kenName != null">
+        #{kenName,jdbcType=VARCHAR},
+      </if>
+      <if test="kenFuri != null">
+        #{kenFuri,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null">
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityFuri != null">
+        #{cityFuri,jdbcType=VARCHAR},
+      </if>
+      <if test="townName != null">
+        #{townName,jdbcType=VARCHAR},
+      </if>
+      <if test="townFuri != null">
+        #{townFuri,jdbcType=VARCHAR},
+      </if>
+      <if test="townMemo != null">
+        #{townMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="kyotoStreet != null">
+        #{kyotoStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="blockName != null">
+        #{blockName,jdbcType=VARCHAR},
+      </if>
+      <if test="blockFuri != null">
+        #{blockFuri,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="officeName != null">
+        #{officeName,jdbcType=VARCHAR},
+      </if>
+      <if test="officeFuri != null">
+        #{officeFuri,jdbcType=VARCHAR},
+      </if>
+      <if test="officeAddress != null">
+        #{officeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="newId != null">
+        #{newId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="jp.co.xq.service.sys.model.SysAreaExample" resultType="java.lang.Long">
+    select count(*) from sys_area
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sys_area
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.kenId != null">
+        ken_id = #{record.kenId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cityId != null">
+        city_id = #{record.cityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.townId != null">
+        town_id = #{record.townId,jdbcType=INTEGER},
+      </if>
+      <if test="record.zip != null">
+        zip = #{record.zip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.officeFlg != null">
+        office_flg = #{record.officeFlg,jdbcType=INTEGER},
+      </if>
+      <if test="record.deleteFlg != null">
+        delete_flg = #{record.deleteFlg,jdbcType=INTEGER},
+      </if>
+      <if test="record.kenName != null">
+        ken_name = #{record.kenName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kenFuri != null">
+        ken_furi = #{record.kenFuri,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityName != null">
+        city_name = #{record.cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityFuri != null">
+        city_furi = #{record.cityFuri,jdbcType=VARCHAR},
+      </if>
+      <if test="record.townName != null">
+        town_name = #{record.townName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.townFuri != null">
+        town_furi = #{record.townFuri,jdbcType=VARCHAR},
+      </if>
+      <if test="record.townMemo != null">
+        town_memo = #{record.townMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kyotoStreet != null">
+        kyoto_street = #{record.kyotoStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blockName != null">
+        block_name = #{record.blockName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blockFuri != null">
+        block_furi = #{record.blockFuri,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memo != null">
+        memo = #{record.memo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.officeName != null">
+        office_name = #{record.officeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.officeFuri != null">
+        office_furi = #{record.officeFuri,jdbcType=VARCHAR},
+      </if>
+      <if test="record.officeAddress != null">
+        office_address = #{record.officeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newId != null">
+        new_id = #{record.newId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_area
+    set id = #{record.id,jdbcType=INTEGER},
+      ken_id = #{record.kenId,jdbcType=INTEGER},
+      city_id = #{record.cityId,jdbcType=INTEGER},
+      town_id = #{record.townId,jdbcType=INTEGER},
+      zip = #{record.zip,jdbcType=VARCHAR},
+      office_flg = #{record.officeFlg,jdbcType=INTEGER},
+      delete_flg = #{record.deleteFlg,jdbcType=INTEGER},
+      ken_name = #{record.kenName,jdbcType=VARCHAR},
+      ken_furi = #{record.kenFuri,jdbcType=VARCHAR},
+      city_name = #{record.cityName,jdbcType=VARCHAR},
+      city_furi = #{record.cityFuri,jdbcType=VARCHAR},
+      town_name = #{record.townName,jdbcType=VARCHAR},
+      town_furi = #{record.townFuri,jdbcType=VARCHAR},
+      town_memo = #{record.townMemo,jdbcType=VARCHAR},
+      kyoto_street = #{record.kyotoStreet,jdbcType=VARCHAR},
+      block_name = #{record.blockName,jdbcType=VARCHAR},
+      block_furi = #{record.blockFuri,jdbcType=VARCHAR},
+      memo = #{record.memo,jdbcType=VARCHAR},
+      office_name = #{record.officeName,jdbcType=VARCHAR},
+      office_furi = #{record.officeFuri,jdbcType=VARCHAR},
+      office_address = #{record.officeAddress,jdbcType=VARCHAR},
+      new_id = #{record.newId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="jp.co.xq.service.sys.model.SysArea">
+    update sys_area
+    <set>
+      <if test="kenId != null">
+        ken_id = #{kenId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null">
+        city_id = #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="townId != null">
+        town_id = #{townId,jdbcType=INTEGER},
+      </if>
+      <if test="zip != null">
+        zip = #{zip,jdbcType=VARCHAR},
+      </if>
+      <if test="officeFlg != null">
+        office_flg = #{officeFlg,jdbcType=INTEGER},
+      </if>
+      <if test="deleteFlg != null">
+        delete_flg = #{deleteFlg,jdbcType=INTEGER},
+      </if>
+      <if test="kenName != null">
+        ken_name = #{kenName,jdbcType=VARCHAR},
+      </if>
+      <if test="kenFuri != null">
+        ken_furi = #{kenFuri,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null">
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityFuri != null">
+        city_furi = #{cityFuri,jdbcType=VARCHAR},
+      </if>
+      <if test="townName != null">
+        town_name = #{townName,jdbcType=VARCHAR},
+      </if>
+      <if test="townFuri != null">
+        town_furi = #{townFuri,jdbcType=VARCHAR},
+      </if>
+      <if test="townMemo != null">
+        town_memo = #{townMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="kyotoStreet != null">
+        kyoto_street = #{kyotoStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="blockName != null">
+        block_name = #{blockName,jdbcType=VARCHAR},
+      </if>
+      <if test="blockFuri != null">
+        block_furi = #{blockFuri,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="officeName != null">
+        office_name = #{officeName,jdbcType=VARCHAR},
+      </if>
+      <if test="officeFuri != null">
+        office_furi = #{officeFuri,jdbcType=VARCHAR},
+      </if>
+      <if test="officeAddress != null">
+        office_address = #{officeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="newId != null">
+        new_id = #{newId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jp.co.xq.service.sys.model.SysArea">
+    update sys_area
+    set ken_id = #{kenId,jdbcType=INTEGER},
+      city_id = #{cityId,jdbcType=INTEGER},
+      town_id = #{townId,jdbcType=INTEGER},
+      zip = #{zip,jdbcType=VARCHAR},
+      office_flg = #{officeFlg,jdbcType=INTEGER},
+      delete_flg = #{deleteFlg,jdbcType=INTEGER},
+      ken_name = #{kenName,jdbcType=VARCHAR},
+      ken_furi = #{kenFuri,jdbcType=VARCHAR},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      city_furi = #{cityFuri,jdbcType=VARCHAR},
+      town_name = #{townName,jdbcType=VARCHAR},
+      town_furi = #{townFuri,jdbcType=VARCHAR},
+      town_memo = #{townMemo,jdbcType=VARCHAR},
+      kyoto_street = #{kyotoStreet,jdbcType=VARCHAR},
+      block_name = #{blockName,jdbcType=VARCHAR},
+      block_furi = #{blockFuri,jdbcType=VARCHAR},
+      memo = #{memo,jdbcType=VARCHAR},
+      office_name = #{officeName,jdbcType=VARCHAR},
+      office_furi = #{officeFuri,jdbcType=VARCHAR},
+      office_address = #{officeAddress,jdbcType=VARCHAR},
+      new_id = #{newId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <insert id="batchInsert" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      @project https://github.com/itfsw/mybatis-generator-plugin
+    -->
+    insert into sys_area
+    (ken_id, city_id, town_id, zip, office_flg, delete_flg, ken_name, ken_furi, city_name, 
+      city_furi, town_name, town_furi, town_memo, kyoto_street, block_name, block_furi, 
+      memo, office_name, office_furi, office_address, new_id)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.kenId,jdbcType=INTEGER}, #{item.cityId,jdbcType=INTEGER}, #{item.townId,jdbcType=INTEGER}, 
+        #{item.zip,jdbcType=VARCHAR}, #{item.officeFlg,jdbcType=INTEGER}, #{item.deleteFlg,jdbcType=INTEGER}, 
+        #{item.kenName,jdbcType=VARCHAR}, #{item.kenFuri,jdbcType=VARCHAR}, #{item.cityName,jdbcType=VARCHAR}, 
+        #{item.cityFuri,jdbcType=VARCHAR}, #{item.townName,jdbcType=VARCHAR}, #{item.townFuri,jdbcType=VARCHAR}, 
+        #{item.townMemo,jdbcType=VARCHAR}, #{item.kyotoStreet,jdbcType=VARCHAR}, #{item.blockName,jdbcType=VARCHAR}, 
+        #{item.blockFuri,jdbcType=VARCHAR}, #{item.memo,jdbcType=VARCHAR}, #{item.officeName,jdbcType=VARCHAR}, 
+        #{item.officeFuri,jdbcType=VARCHAR}, #{item.officeAddress,jdbcType=VARCHAR}, #{item.newId,jdbcType=VARCHAR}
+        )
+    </foreach>
+  </insert>
+  <insert id="batchInsertSelective" keyColumn="id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      @project https://github.com/itfsw/mybatis-generator-plugin
+    -->
+    <choose>
+      <when test="selective != null and selective.length > 0">
+        insert into sys_area (
+        <foreach collection="selective" item="column" separator=",">
+          ${column.escapedColumnName}
+        </foreach>
+        )
+        values
+        <foreach collection="list" item="item" separator=",">
+          (
+          <foreach collection="selective" item="column" separator=",">
+            <if test="'ken_id'.toString() == column.value">
+              #{item.kenId,jdbcType=INTEGER}
+            </if>
+            <if test="'city_id'.toString() == column.value">
+              #{item.cityId,jdbcType=INTEGER}
+            </if>
+            <if test="'town_id'.toString() == column.value">
+              #{item.townId,jdbcType=INTEGER}
+            </if>
+            <if test="'zip'.toString() == column.value">
+              #{item.zip,jdbcType=VARCHAR}
+            </if>
+            <if test="'office_flg'.toString() == column.value">
+              #{item.officeFlg,jdbcType=INTEGER}
+            </if>
+            <if test="'delete_flg'.toString() == column.value">
+              #{item.deleteFlg,jdbcType=INTEGER}
+            </if>
+            <if test="'ken_name'.toString() == column.value">
+              #{item.kenName,jdbcType=VARCHAR}
+            </if>
+            <if test="'ken_furi'.toString() == column.value">
+              #{item.kenFuri,jdbcType=VARCHAR}
+            </if>
+            <if test="'city_name'.toString() == column.value">
+              #{item.cityName,jdbcType=VARCHAR}
+            </if>
+            <if test="'city_furi'.toString() == column.value">
+              #{item.cityFuri,jdbcType=VARCHAR}
+            </if>
+            <if test="'town_name'.toString() == column.value">
+              #{item.townName,jdbcType=VARCHAR}
+            </if>
+            <if test="'town_furi'.toString() == column.value">
+              #{item.townFuri,jdbcType=VARCHAR}
+            </if>
+            <if test="'town_memo'.toString() == column.value">
+              #{item.townMemo,jdbcType=VARCHAR}
+            </if>
+            <if test="'kyoto_street'.toString() == column.value">
+              #{item.kyotoStreet,jdbcType=VARCHAR}
+            </if>
+            <if test="'block_name'.toString() == column.value">
+              #{item.blockName,jdbcType=VARCHAR}
+            </if>
+            <if test="'block_furi'.toString() == column.value">
+              #{item.blockFuri,jdbcType=VARCHAR}
+            </if>
+            <if test="'memo'.toString() == column.value">
+              #{item.memo,jdbcType=VARCHAR}
+            </if>
+            <if test="'office_name'.toString() == column.value">
+              #{item.officeName,jdbcType=VARCHAR}
+            </if>
+            <if test="'office_furi'.toString() == column.value">
+              #{item.officeFuri,jdbcType=VARCHAR}
+            </if>
+            <if test="'office_address'.toString() == column.value">
+              #{item.officeAddress,jdbcType=VARCHAR}
+            </if>
+            <if test="'new_id'.toString() == column.value">
+              #{item.newId,jdbcType=VARCHAR}
+            </if>
+          </foreach>
+          )
+        </foreach>
+      </when>
+      <otherwise>
+        <foreach collection="list" item="item" separator=";">
+          insert into sys_area
+          <trim>
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+              <if test="item.kenId != null">
+                ken_id,
+              </if>
+              <if test="item.cityId != null">
+                city_id,
+              </if>
+              <if test="item.townId != null">
+                town_id,
+              </if>
+              <if test="item.zip != null">
+                zip,
+              </if>
+              <if test="item.officeFlg != null">
+                office_flg,
+              </if>
+              <if test="item.deleteFlg != null">
+                delete_flg,
+              </if>
+              <if test="item.kenName != null">
+                ken_name,
+              </if>
+              <if test="item.kenFuri != null">
+                ken_furi,
+              </if>
+              <if test="item.cityName != null">
+                city_name,
+              </if>
+              <if test="item.cityFuri != null">
+                city_furi,
+              </if>
+              <if test="item.townName != null">
+                town_name,
+              </if>
+              <if test="item.townFuri != null">
+                town_furi,
+              </if>
+              <if test="item.townMemo != null">
+                town_memo,
+              </if>
+              <if test="item.kyotoStreet != null">
+                kyoto_street,
+              </if>
+              <if test="item.blockName != null">
+                block_name,
+              </if>
+              <if test="item.blockFuri != null">
+                block_furi,
+              </if>
+              <if test="item.memo != null">
+                memo,
+              </if>
+              <if test="item.officeName != null">
+                office_name,
+              </if>
+              <if test="item.officeFuri != null">
+                office_furi,
+              </if>
+              <if test="item.officeAddress != null">
+                office_address,
+              </if>
+              <if test="item.newId != null">
+                new_id,
+              </if>
+            </trim>
+          </trim>
+          values
+          <trim>
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+              <if test="item.kenId != null">
+                #{item.kenId,jdbcType=INTEGER},
+              </if>
+              <if test="item.cityId != null">
+                #{item.cityId,jdbcType=INTEGER},
+              </if>
+              <if test="item.townId != null">
+                #{item.townId,jdbcType=INTEGER},
+              </if>
+              <if test="item.zip != null">
+                #{item.zip,jdbcType=VARCHAR},
+              </if>
+              <if test="item.officeFlg != null">
+                #{item.officeFlg,jdbcType=INTEGER},
+              </if>
+              <if test="item.deleteFlg != null">
+                #{item.deleteFlg,jdbcType=INTEGER},
+              </if>
+              <if test="item.kenName != null">
+                #{item.kenName,jdbcType=VARCHAR},
+              </if>
+              <if test="item.kenFuri != null">
+                #{item.kenFuri,jdbcType=VARCHAR},
+              </if>
+              <if test="item.cityName != null">
+                #{item.cityName,jdbcType=VARCHAR},
+              </if>
+              <if test="item.cityFuri != null">
+                #{item.cityFuri,jdbcType=VARCHAR},
+              </if>
+              <if test="item.townName != null">
+                #{item.townName,jdbcType=VARCHAR},
+              </if>
+              <if test="item.townFuri != null">
+                #{item.townFuri,jdbcType=VARCHAR},
+              </if>
+              <if test="item.townMemo != null">
+                #{item.townMemo,jdbcType=VARCHAR},
+              </if>
+              <if test="item.kyotoStreet != null">
+                #{item.kyotoStreet,jdbcType=VARCHAR},
+              </if>
+              <if test="item.blockName != null">
+                #{item.blockName,jdbcType=VARCHAR},
+              </if>
+              <if test="item.blockFuri != null">
+                #{item.blockFuri,jdbcType=VARCHAR},
+              </if>
+              <if test="item.memo != null">
+                #{item.memo,jdbcType=VARCHAR},
+              </if>
+              <if test="item.officeName != null">
+                #{item.officeName,jdbcType=VARCHAR},
+              </if>
+              <if test="item.officeFuri != null">
+                #{item.officeFuri,jdbcType=VARCHAR},
+              </if>
+              <if test="item.officeAddress != null">
+                #{item.officeAddress,jdbcType=VARCHAR},
+              </if>
+              <if test="item.newId != null">
+                #{item.newId,jdbcType=VARCHAR},
+              </if>
+            </trim>
+          </trim>
+        </foreach>
+      </otherwise>
+    </choose>
+  </insert>
+  <cache type="jp.co.xq.service.base.cache.RedisCache" />
+</mapper>

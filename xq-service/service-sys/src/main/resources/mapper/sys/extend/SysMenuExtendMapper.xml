@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.xq.service.sys.mapper.extend.SysMenuExtendMapper">
+  <resultMap id="BaseResultMap" type="jp.co.xq.service.sys.model.extend.SysMenuExtend">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="permission" jdbcType="VARCHAR" property="permission" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="order_num" jdbcType="INTEGER" property="orderNum" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <!-- ユーザーのメニューを取得する -->
+  <select id="getMenuIdsByUserId" resultType="long">
+    select distinct rm.id
+    from sys_user_role r
+    left join sys_role_menu rm on r.role_id = rm.role_id
+    where r.user_id = #{userId,jdbcType=BIGINT}
+  </select>
+
+  <!-- ユーザーのメニューTreeを取得する -->
+  <select id="getMenuListByUserId" resultMap="BaseResultMap">
+    select distinct m.id,
+          m.parent_id ,
+          m.name,
+          m.url,
+          m.permission,
+          m.type,
+          m.icon,
+          m.order_num,
+        (select parent.name
+        from sys_menu parent
+        where parent.id = m.parent_id) as parent_name
+        from sys_user_role ur left join sys_role_menu rm on ur.role_id = rm.role_id
+                              left join sys_menu m on rm.menu_id = m.id
+    where ur.user_id = #{userId}
+    and m.id is not null
+    order by m.order_num asc
+  </select>
+
+</mapper>

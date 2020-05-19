@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script type="text/javascript" th:src="@{/libs/jquery.min.js}"></script>
+</head>
+<body>
+
+<input type="text" id="clock" size="35"/>
+<script th:inline="javascript">
+    /* <![CDATA[ */
+    var int = setInterval(function clock() {
+        var t = new Date();
+        document.getElementById("clock").value = t;
+    }, 50)
+    /* ]]> */
+</script>
+<button onclick="window.clearInterval(int)">Stop interval</button>
+</body>
+</html>

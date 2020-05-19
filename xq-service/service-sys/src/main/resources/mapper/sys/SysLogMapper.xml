@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jp.co.xq.service.sys.mapper.SysLogMapper">
+  <resultMap id="BaseResultMap" type="jp.co.xq.service.sys.model.SysLog">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="operation" jdbcType="VARCHAR" property="operation" />
+    <result column="request_method" jdbcType="VARCHAR" property="requestMethod" />
+    <result column="request_params" jdbcType="VARCHAR" property="requestParams" />
+    <result column="execute_time" jdbcType="BIGINT" property="executeTime" />
+    <result column="ip_address" jdbcType="VARCHAR" property="ipAddress" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, username, operation, request_method, request_params, execute_time, ip_address, 
+    create_time, update_time
+  </sql>
+  <select id="selectByExample" parameterType="jp.co.xq.service.sys.model.SysLogExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_log
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sys_log
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="jp.co.xq.service.sys.model.SysLogExample">
+    delete from sys_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="jp.co.xq.service.sys.model.SysLog">
+    insert into sys_log (id, username, operation, 
+      request_method, request_params, execute_time, 
+      ip_address, create_time, update_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{operation,jdbcType=VARCHAR}, 
+      #{requestMethod,jdbcType=VARCHAR}, #{requestParams,jdbcType=VARCHAR}, #{executeTime,jdbcType=BIGINT}, 
+      #{ipAddress,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="jp.co.xq.service.sys.model.SysLog">
+    insert into sys_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="operation != null">
+        operation,
+      </if>
+      <if test="requestMethod != null">
+        request_method,
+      </if>
+      <if test="requestParams != null">
+        request_params,
+      </if>
+      <if test="executeTime != null">
+        execute_time,
+      </if>
+      <if test="ipAddress != null">
+        ip_address,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="operation != null">
+        #{operation,jdbcType=VARCHAR},
+      </if>
+      <if test="requestMethod != null">
+        #{requestMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="requestParams != null">
+        #{requestParams,jdbcType=VARCHAR},
+      </if>
+      <if test="executeTime != null">
+        #{executeTime,jdbcType=BIGINT},
+      </if>
+      <if test="ipAddress != null">
+        #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="jp.co.xq.service.sys.model.SysLogExample" resultType="java.lang.Long">
+    select count(*) from sys_log
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sys_log
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.operation != null">
+        operation = #{record.operation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requestMethod != null">
+        request_method = #{record.requestMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requestParams != null">
+        request_params = #{record.requestParams,jdbcType=VARCHAR},
+      </if>
+      <if test="record.executeTime != null">
+        execute_time = #{record.executeTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.ipAddress != null">
+        ip_address = #{record.ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sys_log
+    set id = #{record.id,jdbcType=BIGINT},
+      username = #{record.username,jdbcType=VARCHAR},
+      operation = #{record.operation,jdbcType=VARCHAR},
+      request_method = #{record.requestMethod,jdbcType=VARCHAR},
+      request_params = #{record.requestParams,jdbcType=VARCHAR},
+      execute_time = #{record.executeTime,jdbcType=BIGINT},
+      ip_address = #{record.ipAddress,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="jp.co.xq.service.sys.model.SysLog">
+    update sys_log
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="operation != null">
+        operation = #{operation,jdbcType=VARCHAR},
+      </if>
+      <if test="requestMethod != null">
+        request_method = #{requestMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="requestParams != null">
+        request_params = #{requestParams,jdbcType=VARCHAR},
+      </if>
+      <if test="executeTime != null">
+        execute_time = #{executeTime,jdbcType=BIGINT},
+      </if>
+      <if test="ipAddress != null">
+        ip_address = #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="jp.co.xq.service.sys.model.SysLog">
+    update sys_log
+    set username = #{username,jdbcType=VARCHAR},
+      operation = #{operation,jdbcType=VARCHAR},
+      request_method = #{requestMethod,jdbcType=VARCHAR},
+      request_params = #{requestParams,jdbcType=VARCHAR},
+      execute_time = #{executeTime,jdbcType=BIGINT},
+      ip_address = #{ipAddress,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <insert id="batchInsert" parameterType="map">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      @project https://github.com/itfsw/mybatis-generator-plugin
+    -->
+    insert into sys_log
+    (id, username, operation, request_method, request_params, execute_time, ip_address, 
+      create_time, update_time)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.id,jdbcType=BIGINT}, #{item.username,jdbcType=VARCHAR}, #{item.operation,jdbcType=VARCHAR}, 
+        #{item.requestMethod,jdbcType=VARCHAR}, #{item.requestParams,jdbcType=VARCHAR}, 
+        #{item.executeTime,jdbcType=BIGINT}, #{item.ipAddress,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, 
+        #{item.updateTime,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+  <insert id="batchInsertSelective" parameterType="map">
+    <!--
+      WARNING - @mbg.generated
+      This element is automatically generated by MyBatis Generator, do not modify.
+      @project https://github.com/itfsw/mybatis-generator-plugin
+    -->
+    <choose>
+      <when test="selective != null and selective.length > 0">
+        insert into sys_log (
+        <foreach collection="selective" item="column" separator=",">
+          ${column.escapedColumnName}
+        </foreach>
+        )
+        values
+        <foreach collection="list" item="item" separator=",">
+          (
+          <foreach collection="selective" item="column" separator=",">
+            <if test="'id'.toString() == column.value">
+              #{item.id,jdbcType=BIGINT}
+            </if>
+            <if test="'username'.toString() == column.value">
+              #{item.username,jdbcType=VARCHAR}
+            </if>
+            <if test="'operation'.toString() == column.value">
+              #{item.operation,jdbcType=VARCHAR}
+            </if>
+            <if test="'request_method'.toString() == column.value">
+              #{item.requestMethod,jdbcType=VARCHAR}
+            </if>
+            <if test="'request_params'.toString() == column.value">
+              #{item.requestParams,jdbcType=VARCHAR}
+            </if>
+            <if test="'execute_time'.toString() == column.value">
+              #{item.executeTime,jdbcType=BIGINT}
+            </if>
+            <if test="'ip_address'.toString() == column.value">
+              #{item.ipAddress,jdbcType=VARCHAR}
+            </if>
+            <if test="'create_time'.toString() == column.value">
+              #{item.createTime,jdbcType=TIMESTAMP}
+            </if>
+            <if test="'update_time'.toString() == column.value">
+              #{item.updateTime,jdbcType=TIMESTAMP}
+            </if>
+          </foreach>
+          )
+        </foreach>
+      </when>
+      <otherwise>
+        <foreach collection="list" item="item" separator=";">
+          insert into sys_log
+          <trim>
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+              <if test="item.id != null">
+                id,
+              </if>
+              <if test="item.username != null">
+                username,
+              </if>
+              <if test="item.operation != null">
+                operation,
+              </if>
+              <if test="item.requestMethod != null">
+                request_method,
+              </if>
+              <if test="item.requestParams != null">
+                request_params,
+              </if>
+              <if test="item.executeTime != null">
+                execute_time,
+              </if>
+              <if test="item.ipAddress != null">
+                ip_address,
+              </if>
+              <if test="item.createTime != null">
+                create_time,
+              </if>
+              <if test="item.updateTime != null">
+                update_time,
+              </if>
+            </trim>
+          </trim>
+          values
+          <trim>
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+              <if test="item.id != null">
+                #{item.id,jdbcType=BIGINT},
+              </if>
+              <if test="item.username != null">
+                #{item.username,jdbcType=VARCHAR},
+              </if>
+              <if test="item.operation != null">
+                #{item.operation,jdbcType=VARCHAR},
+              </if>
+              <if test="item.requestMethod != null">
+                #{item.requestMethod,jdbcType=VARCHAR},
+              </if>
+              <if test="item.requestParams != null">
+                #{item.requestParams,jdbcType=VARCHAR},
+              </if>
+              <if test="item.executeTime != null">
+                #{item.executeTime,jdbcType=BIGINT},
+              </if>
+              <if test="item.ipAddress != null">
+                #{item.ipAddress,jdbcType=VARCHAR},
+              </if>
+              <if test="item.createTime != null">
+                #{item.createTime,jdbcType=TIMESTAMP},
+              </if>
+              <if test="item.updateTime != null">
+                #{item.updateTime,jdbcType=TIMESTAMP},
+              </if>
+            </trim>
+          </trim>
+        </foreach>
+      </otherwise>
+    </choose>
+  </insert>
+  <cache type="jp.co.xq.service.base.cache.RedisCache" />
+</mapper>

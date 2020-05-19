@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!-- head -->
+<head th:replace="common/common :: header">
+</head>
+<link rel="stylesheet" th:href="@{/css/bootstrap-table.min.css}">
+<link rel="stylesheet" th:href="@{/plugins/treegrid/jquery.treegrid.css}">
+<script th:src="@{/libs/bootstrap-table.min.js}"></script>
+<script th:src="@{/plugins/treegrid/jquery.treegrid.min.js}"></script>
+<script th:src="@{/plugins/treegrid/jquery.treegrid.bootstrap3.js}"></script>
+<script th:src="@{/plugins/treegrid/jquery.treegrid.extension.js}"></script>
+<script th:src="@{/plugins/treegrid/tree.table.js}"></script>
+<title th:utext="#{sysmenu.title}"/>
+
+<body>
+<div id="webapp" v-cloak>
+    <div v-show="showList">
+        <div class="grid-btn">
+            <a class="btn btn-primary" @click="create"><i class="fa fa-plus" th:text="#{common.button.create}"/></a>
+            <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o" th:text="#{common.button.update}"/></a>
+            <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o" th:text="#{common.button.delete}"/></a>
+        </div>
+        <table id="menuTable" data-mobile-responsive="true" data-click-to-select="true">
+            <thead>
+            <tr>
+                <th data-field="selectItem" data-checkbox="true"></th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+
+    <div v-show="!showList" class="panel panel-default">
+        <div class="panel-heading">{{title}}</div>
+        <form class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-2 control-label">タイプ</div>
+                <label class="radio-inline">
+                    <input type="radio" name="type" value="0" v-model="menu.type"/> 目録
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="type" value="1" v-model="menu.type"/> メニュー
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="type" value="2" v-model="menu.type"/> ボタン
+                </label>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">メニュー名称</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="menu.name" placeholder="メニュー名称"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label">親メニュー</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" style="cursor:pointer;" v-model="menu.parentName"
+                           @click="menuTree" readonly="readonly" placeholder="親メニュー"/>
+                </div>
+            </div>
+            <div v-if="menu.type == 1" class="form-group">
+                <div class="col-sm-2 control-label">メニューUrl</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="menu.url" placeholder="メニューUrl"/>
+                </div>
+            </div>
+            <div v-if="menu.type == 1 || menu.type == 2" class="form-group">
+                <div class="col-sm-2 control-label">権限標識</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="menu.perms"
+                           placeholder="menu:list,menu:create"/>
+                </div>
+            </div>
+            <div v-if="menu.type != 2" class="form-group">
+                <div class="col-sm-2 control-label">順序</div>
+                <div class="col-sm-10">
+                    <input type="number" class="form-control" v-model="menu.orderNum" placeholder="順序"/>
+                </div>
+            </div>
+            <div v-if="menu.type != 2" class="form-group">
+                <div class="col-sm-2 control-label">icon</div>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" v-model="menu.icon" placeholder="icon"/>
+                    <code style="margin-top:4px;display: block;">http://www.fontawesome.com.cn/faicons/</code>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2 control-label"></div>
+                <input type="button" class="btn btn-primary" @click="createOrUpdate" value="確定"/>
+                &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="戻る"/>
+            </div>
+        </form>
+    </div>
+    <div id="menuLayer" style="display: none;">
+        <ul id="menuTree" class="ztree"></ul>
+    </div>
+</div>
+<script th:src="@{'/js/sys/sysmenu.js?'+ ${#strings.randomAlphanumeric(10)}}"></script>
+</body>
+</html>

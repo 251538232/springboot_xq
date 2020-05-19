@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/common :: header">
+</head>
+<body>
+    <div id="app" class="container-fluid">
+        <div class="row-fluid">
+            <div class="col-md-6" style="padding-top:20px;border-radius:4px;margin-top:10px;overflow:hidden;box-shadow:inset -1px -1px 1px rgba(0,0,0,0.05)">
+                <div   style="padding-bottom: 30px;padding-top:15px;padding-left: 20px;">
+                    <input type="month" v-model="q.dayOfMonth" @input="changeMonth">
+                </div>
+                <div id="work-hours-chart" style="width:644px;height:756px;" >
+
+                </div>
+            </div>
+            <div class="col-md-6" style="padding-top:20px;border-radius:4px;margin-top:10px;overflow:hidden;box-shadow:inset 1px -1px 1px rgba(0,0,0,0.05)">
+                <div style="padding-bottom:30px;padding-top:15px;padding-left: 20px;">
+                    <select v-model="currentPCType" @change="changePCType">
+                        <option value="ProjectHours">ProjectHours</option>
+                        <option value="ProjectCost">ProjectCost</option>
+                    </select>
+                </div>
+                <div id="project-chart" style="width:644px;height:756px;" >
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script th:src="@{'/js/tmg/workhourscharts.js?'+ ${#strings.randomAlphanumeric(10)}}"></script>
+</html>

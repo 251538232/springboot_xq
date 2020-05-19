@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration>
+<configuration>
+
+    <appender name="SYSTEMLOG"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/usr/local/rba/b0002N/logs/b0002N/system.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/usr/local/rba/b0002N/logs/b0002N/system.log.%d{yyyy-MM-dd}
+            </FileNamePattern>
+            <!-- keep 7 days' worth of history -->
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %le %marker| %lo{36}[%F:%L] - %msg %n</Pattern>
+        </encoder>
+    </appender>
+
+    <appender name="PERFORMANCELOG"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/usr/local/rba/b0002N/logs/b0002N/performance.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/usr/local/rba/b0002N/logs/b0002N/performance.log.%d{yyyy-MM-dd}</FileNamePattern>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <param name="Pattern" value="%msg%n"/>
+        </layout>
+    </appender>
+    <!-- appender for performance.log -->
+    <appender name="ASYNC_PERFORM" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="PERFORMANCELOG"/>
+    </appender>
+    "etc/logback.xml"
+
+    <appender name="PARAMLOG"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/usr/local/rba/b0002N/logs/b0002N/param.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/usr/local/rba/b0002N/logs/b0002N/param.log.%d{yyyy-MM-dd-HH}</FileNamePattern>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <param name="Pattern" value="%d{ISO8601} [%t] %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="ASYNC_PARAM" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="PARAMLOG"/>
+    </appender>
+
+
+    <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="SYSTEMLOG"/>
+    </appender>
+
+    <logger name="log.performance" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="ASYNC_PERFORM"/>
+    </logger>
+
+    <!-- appender for param.log -->
+    <logger name="log.param" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="ASYNC_PARAM"/>
+    </logger>
+
+    <logger name="log.system" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="ASYNC_PARAM"/>
+    </logger>
+
+    <root>
+        <appender-ref ref="ASYNC"/>
+    </root>
+
+</configuration>
