@@ -44,7 +44,7 @@ public class LoginController extends BaseController {
      * @param password パスワード
      * @return ログイン結果
      */
-    @RequestLimit(count = 1, interval = 1)
+//    @RequestLimit(count = 1, interval = 1)
     @ResponseBody
     @ApiOperation(value = "ユーザーログイン処理", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_VALUE)
     @RequestMapping(value = "/login", params = {"username", "password"}, method = {RequestMethod.GET})
