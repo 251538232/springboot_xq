@@ -23,8 +23,6 @@ import java.util.concurrent.TimeUnit;
  *
  * @author t
  */
-@Aspect
-@Component
 public class RequestLimitAspect {
 
     RedisTemplate<String, Integer> redisTemplate;
